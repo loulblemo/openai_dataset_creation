@@ -22,7 +22,7 @@ def generate_dalle_image(prompt):
 
 def caption_image_fron_url(url):
 
-    response = openai.chat.completions.create(
+    return openai.chat.completions.create(
         model=txt_model,
         messages=[
             {
@@ -39,6 +39,4 @@ def caption_image_fron_url(url):
             }
         ],
         max_tokens=50,
-    )
-
-    return response.choices[0].message.content
+    ).choices[0].message.content
