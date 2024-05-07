@@ -8,7 +8,7 @@ openai.api_key = api_key
 txt_model = "gpt-4-turbo"
 
 
-def generate_dalle_image(size, img_model):
+def generate_dalle_image(prompt, size, img_model):
     
     return openai.images.generate(
         model=img_model,
@@ -19,7 +19,7 @@ def generate_dalle_image(size, img_model):
     ).data[0].url
 
 
-def caption_image_fron_url(url):
+def caption_image_from_url(url):
 
     return openai.chat.completions.create(
         model=txt_model,
