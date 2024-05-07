@@ -5,12 +5,12 @@ import argparse
 
 from urllib.request import urlretrieve
 
-from openai_utils import generate_dalle_image
-from openai_utils import caption_image_from_url
+from utils.openai_utils import generate_dalle_image
+from utils.openai_utils import caption_image_from_url
 
-from utils import generate_filename
-from utils import write_json_as_csv
-from utils import load_from_csv
+from utils.utils import generate_filename
+from utils.utils import write_json_as_csv
+from utils.utils import load_from_csv
 
 
 def generate_dataset(prompt, dataset_folder, meta, num_datapoints, img_size, img_model):
