@@ -51,19 +51,19 @@ if __name__ == "__main__":
                         '-o', 
                         dest='output_folder', 
                         type=str, 
-                        'my_dataset',
+                        default='my_dataset',
                         help="Output folder where to save the dataset")
     parser.add_argument('--size', 
                         '-s', 
                         dest='img_size', 
                         type=str, 
-                        '256x256',
+                        default='256x256',
                         help="The size of output images in pixels, note that some models only accept particular resolutions")
     parser.add_argument('--num-datapoints', 
                         '-n', 
                         dest='num_datapoints', 
                         type=int, 
-                        10,
+                        default=10,
                         help="How many datapoints to generate")
 
     args = parser.parse_args()
