@@ -22,13 +22,14 @@ def generate_dataset(prompt, dataset_folder, meta, num_datapoints, img_size, img
 
         try:
 
-            # image_url = generate_dalle_image(prompt=prompt, size=img_size, img_model=img_model)
-            # caption = caption_image_from_url(image_url)
-            # img_filename = os.path.join(dataset_folder, 'data', generate_filename())
-            # urlretrieve(image_url, img_filename)
-            # meta.update({img_filename: caption})
-
-            meta.update({generate_filename() : 'test' + str(i)})
+            image_url = generate_dalle_image(prompt=prompt, size=img_size, img_model=img_model)
+            caption = caption_image_from_url(image_url)
+            
+            img_filename = os.path.join(dataset_folder, 'data', generate_filename())
+            
+            urlretrieve(image_url, img_filename)
+            
+            meta.update({img_filename: caption})
 
         except Exception as e: 
             print("Something went wrong with the API, saving the metadata. See ERROR:")
