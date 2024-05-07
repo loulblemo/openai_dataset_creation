@@ -93,7 +93,7 @@ if __name__ == "__main__":
                             meta=meta,
                             num_datapoints=args.num_datapoints, 
                             img_size=args.img_size, 
-                            img_model=parser.model
+                            img_model=args.model
                             )
 
     print("Done creating dataset. Dataset size is currently " + str(len(meta)) + str(" files"))

@@ -9,6 +9,8 @@ txt_model = "gpt-3.5-turbo"
 
 def generate_dalle_image(prompt, size, img_model):
     
+    print(prompt)
+
     return openai.images.generate(
         model=img_model,
         prompt=prompt,
