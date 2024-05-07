@@ -57,7 +57,7 @@ if __name__ == "__main__":
                         '-s', 
                         dest='img_size', 
                         type=str, 
-                        default='256x256',
+                        default='512x512',
                         help="The size of output images in pixels, note that some models only accept particular resolutions")
     parser.add_argument('--num-datapoints', 
                         '-n', 
