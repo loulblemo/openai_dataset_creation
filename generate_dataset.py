@@ -1,6 +1,7 @@
 import os
-
 import json
+
+import argparse
 
 from urllib.request import urlretrieve
 
@@ -10,8 +11,6 @@ from openai_utils import caption_image_from_url
 from utils import generate_filename
 from utils import write_json_as_csv
 from utils import load_from_csv
-# description = """  """
-# print("Found " + str(len(meta)) + " files in metadata.json")
 
 
 def generate_dataset(prompt, dataset_folder, meta, num_datapoints, img_size, img_model):
@@ -41,16 +40,41 @@ def generate_dataset(prompt, dataset_folder, meta, num_datapoints, img_size, img
 
 if __name__ == "__main__":
 
-    prompt_file = "example_prompt.txt"
-    dataset_folder = "skyscrapers"
+    parser = argparse.ArgumentParser(description="Generate a diffusion dataset using OpenAI API")
     
-    os.makedirs(dataset_folder, exist_ok=True)
-    os.makedirs(os.path.join(dataset_folder, 'data'), exist_ok=True)
+    parser.add_argument('--prompt-file', '-p', 
+                        dest='prompt_file', 
+                        type=str, 
+                        default='example_prompt.txt',
+                        help="Text file containing the text prompt for image generation")
+    parser.add_argument('--output-folder', 
+                        '-o', 
+                        dest='output_folder', 
+                        type=str, 
+                        'my_dataset',
+                        help="Output folder where to save the dataset")
+    parser.add_argument('--size', 
+                        '-s', 
+                        dest='img_size', 
+                        type=str, 
+                        '256x256',
+                        help="The size of output images in pixels, note that some models only accept particular resolutions")
+    parser.add_argument('--num-datapoints', 
+                        '-n', 
+                        dest='num_datapoints', 
+                        type=int, 
+                        10,
+                        help="How many datapoints to generate")
 
-    with open(prompt_file, "r") as txt_file:
+    args = parser.parse_args()
+
+    os.makedirs(args.output_folder, exist_ok=True)
+    os.makedirs(os.path.join(args.output_folder, 'data'), exist_ok=True)
+
+    with open(args.prompt_file, "r") as txt_file:
         prompt = txt_file.read()
 
-    metadata_csv_file = os.path.join(dataset_folder, 'metadata.csv')
+    metadata_csv_file = os.path.join(args.output_folder, 'metadata.csv')
 
     if os.path.exists(metadata_csv_file):
         print("Metadata found, updating the current meta with new files")
@@ -58,10 +82,10 @@ if __name__ == "__main__":
     else: meta = None
 
     meta = generate_dataset(prompt, 
-                            dataset_folder=dataset_folder,
+                            dataset_folder=args.output_folder,
                             meta=meta,
-                            num_datapoints=10, 
-                            img_size="256x256", 
+                            num_datapoints=args.num_datapoints, 
+                            img_size=args.img_size, 
                             img_model='dall-e-2'
                             )
 
