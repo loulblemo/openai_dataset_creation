@@ -1,0 +1,44 @@
+import os
+import openai
+
+api_key = os.getenv('OPENAI_API_KEY')
+assert api_key is not None, "You have to set an environment variable OPENAI_API_KEY with your OpenAI API key"
+openai.api_key = api_key
+
+img_model = "dall-e-3"
+txt_model = "gpt-4-turbo"
+
+
+def generate_dalle_image(prompt):
+    
+    return openai.images.generate(
+        model=img_model,
+        prompt=prompt,
+        size="1024x1024",
+        quality="standard",
+        n=1,
+    ).data
+
+
+def caption_image_fron_url(url):
+
+    response = openai.chat.completions.create(
+        model=txt_model,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": "Write a synthetic description for the following image."},
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                            "url": url,
+                        },
+                    },
+                ],
+            }
+        ],
+        max_tokens=50,
+    )
+
+    return response.choices[0].message.content
