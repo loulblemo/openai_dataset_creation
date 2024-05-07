@@ -17,7 +17,7 @@ def generate_dalle_image(prompt):
         size="1024x1024",
         quality="standard",
         n=1,
-    ).data
+    ).data[0].url
 
 
 def caption_image_fron_url(url):

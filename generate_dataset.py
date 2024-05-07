@@ -1,15 +1,16 @@
 import os
 
-from urllib.request import urlretrieve
-
+import random
 import datetime
 import json
+
+from urllib.request import urlretrieve
 
 from openai_utils import generate_dalle_image
 from openai_utils import caption_image_fron_url
 
-def get_filename():
-    return datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S")
+def generate_filename():
+    return datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S_" + str(random.randint(0, 1000)))
 
 description = """ a simple image of a skyscraper in the style of a city building game. 
 the skyscraper should be isolated and surrounded by a simple 2 lanes road, 
@@ -23,27 +24,35 @@ else:
 
 print("Found " + str(len(meta)) + " files in metadata.json")
 
-for i in range(14):
 
-    try:
-        x = generate_dalle_image(description)
+def generate_dataset(prompt, num_datapoints):
 
-        caption = caption_image(x[0].url)
+    for i in range(num_datapoints):
 
-        print(x[0].url)
-        print()
-        print(caption)
-        print()
+        try:
+            image_url = generate_dalle_image(description)
+            caption = caption_image(image_url)
 
-        img_filename = os.path.join('data', get_filename() + '.png')
+            print(image_url)
+            print()
+            print(caption)
+            print()
 
-        urlretrieve(x[0].url, img_filename)
+            img_filename = os.path.join('data', generate_filename() + '.png')
 
-        meta.update({img_filename: caption})
+            urlretrieve(image_url, img_filename)
 
-    except Exception as e: 
-        print(e)
-        print("Something went wrong with the API, saving the metadata.")
-        break
+            meta.update({img_filename: caption})
+
+        except Exception as e: 
+            print(e)
+            print("Something went wrong with the API, saving the metadata.")
+            break
 
 json.dump(meta, open('metadata.json', 'w'), indent=4)
+
+if __name__ == "__main__":
+
+    prompt = description
+
+    generate_dataset(prompt, num_datapoints=50)
