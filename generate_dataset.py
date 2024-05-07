@@ -1,13 +1,12 @@
 import os
 
 from urllib.request import urlretrieve
-import openai
 
 import datetime
 import json
 
-from openai import generate_dalle_image
-from openai import caption_image_fron_url
+from openai_utils import generate_dalle_image
+from openai_utils import caption_image_fron_url
 
 def get_filename():
     return datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S")
