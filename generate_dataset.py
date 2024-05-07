@@ -65,6 +65,12 @@ if __name__ == "__main__":
                         type=int, 
                         default=10,
                         help="How many datapoints to generate")
+    parser.add_argument('--model', 
+                        '-m', 
+                        dest='model', 
+                        type=str, 
+                        default='dall-e-2',
+                        help="The image model to be used, default is dall-e-2 as it is cheaper")
 
     args = parser.parse_args()
 
@@ -86,7 +92,7 @@ if __name__ == "__main__":
                             meta=meta,
                             num_datapoints=args.num_datapoints, 
                             img_size=args.img_size, 
-                            img_model='dall-e-2'
+                            img_model=parser.model
                             )
 
     print("Done creating dataset. Dataset size is currently " + str(len(meta)) + str(" files"))
