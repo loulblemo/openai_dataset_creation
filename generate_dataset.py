@@ -1,7 +1,5 @@
 import os
 
-import random
-import datetime
 import json
 
 from urllib.request import urlretrieve
@@ -9,16 +7,17 @@ from urllib.request import urlretrieve
 from openai_utils import generate_dalle_image
 from openai_utils import caption_image_from_url
 
-def generate_filename():
-    return datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S_" + str(random.randint(0, 1000)) + '.png')
-
+from utils import generate_filename
+from utils import write_json_as_csv
+from utils import load_from_csv
 # description = """  """
 # print("Found " + str(len(meta)) + " files in metadata.json")
 
 
-def generate_dataset(prompt, dataset_folder, num_datapoints, img_size, img_model):
+def generate_dataset(prompt, dataset_folder, meta, num_datapoints, img_size, img_model):
 
-    meta = {}
+    if meta is None:
+        meta = {}
 
     for i in range(num_datapoints):
 
@@ -37,23 +36,35 @@ def generate_dataset(prompt, dataset_folder, num_datapoints, img_size, img_model
             print(e)
             break
 
-        return meta
+    return meta
 
 
 if __name__ == "__main__":
 
     prompt_file = "example_prompt.txt"
     dataset_folder = "skyscrapers"
-
+    
     os.makedirs(dataset_folder, exist_ok=True)
     os.makedirs(os.path.join(dataset_folder, 'data'), exist_ok=True)
 
     with open(prompt_file, "r") as txt_file:
         prompt = txt_file.read()
 
+    metadata_csv_file = os.path.join(dataset_folder, 'metadata.csv')
+
+    if os.path.exists(metadata_csv_file):
+        print("Metadata found, updating the current meta with new files")
+        meta = load_from_csv(metadata_csv_file)
+    else: meta = None
+
     meta = generate_dataset(prompt, 
                             dataset_folder=dataset_folder,
+                            meta=meta,
                             num_datapoints=10, 
                             img_size="256x256", 
                             img_model='dall-e-2'
                             )
+
+    print("Done creating dataset. Dataset size is currently " + str(len(meta)) + str(" files"))
+
+    write_json_as_csv(meta, metadata_csv_file)
