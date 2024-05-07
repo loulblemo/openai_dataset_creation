@@ -19,6 +19,7 @@ https://github.com/loulblemo/colab_diffusers_finetuning/blob/main/diffusion_fine
 If you create a dataset using the OpenAI API you need to make sure you comply with their Terms of Services and Policies if you intend to distribute it
 
 https://openai.com/it-IT/policies/usage-policies
+
 https://openai.com/it-IT/policies/terms-of-use
 
 ## Setup
@@ -30,6 +31,8 @@ You will also need a textfile containing the prompt to be used every image in th
 "A photorealistic picture of a black cat."
 
 The default image generation model is currently dalle-2, but I would recommend to use dalle-3 if you have the budget
+
+## Running the code
 
 ## Other
 
