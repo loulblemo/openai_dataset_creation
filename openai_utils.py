@@ -5,12 +5,11 @@ api_key = os.getenv('OPENAI_API_KEY')
 assert api_key is not None, "You have to set an environment variable OPENAI_API_KEY with your OpenAI API key"
 openai.api_key = api_key
 
-txt_model = "gpt-3.5-turbo"
+# We cannot use gpt-3.5 as it doesn't support image-to-text
+txt_model = "gpt-4-turbo"
 
 def generate_dalle_image(prompt, size, img_model):
     
-    print(prompt)
-
     return openai.images.generate(
         model=img_model,
         prompt=prompt,
@@ -28,7 +27,8 @@ def caption_image_from_url(url):
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": "Write a synthetic description for the following image."},
+                    {"type": "text", 
+                     "text": "Write a synthetic description for the following image."},
                         {
                             "type": "image_url",
                             "image_url": {

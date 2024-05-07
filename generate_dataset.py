@@ -23,8 +23,14 @@ def generate_dataset(prompt, dataset_folder, meta, num_datapoints, img_size, img
         try:
 
             image_url = generate_dalle_image(prompt=prompt, size=img_size, img_model=img_model)
+            
+            import ipdb; ipdb.set_trace(context=10)
+
             caption = caption_image_from_url(image_url)
             
+            print("GENERATED:")
+            print(caption)
+
             img_filename = os.path.join(dataset_folder, 'data', generate_filename())
             
             urlretrieve(image_url, img_filename)

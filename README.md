@@ -29,4 +29,8 @@ You will also need a textfile containing the prompt to be used every image in th
 
 "A photorealistic picture of a black cat."
 
+The default image generation model is currently dalle-2, but I would recommend to use dalle-3 if you have the budget
+
+## Other
+
 Add about unicode replacement
