@@ -34,9 +34,14 @@ The default image generation model is currently dalle-2, but I would recommend t
 
 ## Running the code
 
-The entry point for this repo is `generate_dataset.py`
+The entry point for this repo is `generate_dataset.py` you can run it as it is and it will use some default settings, but I would recommend to run it as 
 
+`generate_dataset.py -h` 
+
+to see what arguments it takes.
+
+I also provide an additional script, `resize_images.py` that will batch resize your images in case you change your mind on the size.
 
 ## Other
 
-Add about unicode replacement
+A little note about the use of `unidecode` when creating the `metadata.csv` file: The HuggingFace training code won't support textual captions in UNICODE format, while chatgpt might return unicode characters at times. So we are converting all the UNICODE characters into ASCII
