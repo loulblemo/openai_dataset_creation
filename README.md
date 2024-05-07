@@ -6,7 +6,7 @@ This repo showcases how we can use the OpenAI API to create a dataset that can b
 
 We will be using Dall-e to generate the Images and ChatGPT to annotate the images with text.
 
-The main script in this repo, generate_dataset.py, creates a dataset folder that can be uploaded to the public HuggingFace Datasets. The output folder will contain a 'data' folder with the images, and a 'metadata.csv' file, containing the matching between images and text. 
+The main script in this repo, generate_dataset.py, creates a dataset folder that can be uploaded to the public HuggingFace Datasets. The output folder will contain a `data` folder with the images, and a `metadata.csv` file, containing the matching between images and text. 
 
 An example of a dataset created using this script can be found here: 
 https://huggingface.co/datasets/Loulblemo/diffusion_skyscrapers_city_building
@@ -33,6 +33,9 @@ You will also need a textfile containing the prompt to be used every image in th
 The default image generation model is currently dalle-2, but I would recommend to use dalle-3 if you have the budget
 
 ## Running the code
+
+The entry point for this repo is `generate_dataset.py`
+
 
 ## Other
 
