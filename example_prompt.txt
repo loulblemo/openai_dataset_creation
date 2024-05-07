@@ -1,0 +1,4 @@
+a simple image of a skyscraper in the style of a city building game. 
+the skyscraper should be isolated and surrounded by a simple 2 lanes road, 
+and it should be represented be in the angle of a 2D city building game but with 3D like buildings. 
+The viewpoint should be the usual one in 2D city building games and the skyscraper should be in the centre of the image.

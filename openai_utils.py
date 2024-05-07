@@ -5,16 +5,15 @@ api_key = os.getenv('OPENAI_API_KEY')
 assert api_key is not None, "You have to set an environment variable OPENAI_API_KEY with your OpenAI API key"
 openai.api_key = api_key
 
-img_model = "dall-e-3"
 txt_model = "gpt-4-turbo"
 
 
-def generate_dalle_image(prompt):
+def generate_dalle_image(size, img_model):
     
     return openai.images.generate(
         model=img_model,
         prompt=prompt,
-        size="1024x1024",
+        size=size,
         quality="standard",
         n=1,
     ).data[0].url

@@ -12,10 +12,7 @@ from openai_utils import caption_image_fron_url
 def generate_filename():
     return datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S_" + str(random.randint(0, 1000)))
 
-description = """ a simple image of a skyscraper in the style of a city building game. 
-the skyscraper should be isolated and surrounded by a simple 2 lanes road, 
-and it should be represented be in the angle of a 2D city building game but with 3D like buildings. 
-The viewpoint should be the usual one in 2D city building games and the skyscraper should be in the centre of the image. """
+description = """  """
 
 if os.path.exists('metadata.json'):
     meta = json.load(open('metadata.json', 'rb'))
@@ -25,12 +22,12 @@ else:
 print("Found " + str(len(meta)) + " files in metadata.json")
 
 
-def generate_dataset(prompt, num_datapoints):
+def generate_dataset(prompt, num_datapoints, img_size, img_model):
 
     for i in range(num_datapoints):
 
         try:
-            image_url = generate_dalle_image(description)
+            image_url = generate_dalle_image(prompt, size=img_size)
             caption = caption_image(image_url)
 
             print(image_url)
@@ -53,6 +50,11 @@ json.dump(meta, open('metadata.json', 'w'), indent=4)
 
 if __name__ == "__main__":
 
+    prompt_file = "example_prompt.txt"
+
+    with open(prompt_file, "r") as txt_file:
+        prompt = txt_file.read()
+
     prompt = description
 
-    generate_dataset(prompt, num_datapoints=50)
+    generate_dataset(prompt, num_datapoints=50, img_size="1024x1024", img_model='dall-e-2')
